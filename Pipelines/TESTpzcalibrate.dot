@@ -1,0 +1,21 @@
+digraph TESTpzcalibrate {
+node [shape=ellipse]; PZClusterz; PZTomographicSelector; MagnificationCorrection; TwoPointCode
+node [shape=box]; specz_calibration_sample_ra_dec_sz; pz_tomographic_bins_radec_file; specz_bias_evolution_model; specz_galaxy_footprint_randoms; SZPZ_Pairs_or_Corr_Functions; pz_pdfs_colors_catalog; pz_galaxy_footprint_randoms; Calibrated_Tomographic_NZ_Covariance; Calibrated_Tomographic_NZ; magnification_correction_params; apparent_magnidute_LF; pz_bias_evolution_model
+"magnification_correction_params" -> PZClusterz;
+"SZPZ_Pairs_or_Corr_Functions" -> PZClusterz;
+"specz_bias_evolution_model" -> PZClusterz;
+"pz_bias_evolution_model" -> PZClusterz;
+PZClusterz -> "Calibrated_Tomographic_NZ";
+PZClusterz -> "Calibrated_Tomographic_NZ_Covariance";
+"pz_pdfs_colors_catalog" -> PZTomographicSelector;
+PZTomographicSelector -> "pz_tomographic_bins_radec_file";
+PZTomographicSelector -> "pz_bias_evolution_model";
+"apparent_magnidute_LF" -> MagnificationCorrection;
+"Calibrated_Tomographic_NZ" -> MagnificationCorrection;
+MagnificationCorrection -> "magnification_correction_params";
+"specz_calibration_sample_ra_dec_sz" -> TwoPointCode;
+"pz_tomographic_bins_radec_file" -> TwoPointCode;
+"specz_galaxy_footprint_randoms" -> TwoPointCode;
+"pz_galaxy_footprint_randoms" -> TwoPointCode;
+TwoPointCode -> "SZPZ_Pairs_or_Corr_Functions";
+}

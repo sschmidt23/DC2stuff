@@ -1,0 +1,33 @@
+digraph TESTpzincomplete {
+node [shape=ellipse]; PZStorage1D; PZMainAlgorithm; PZStorage2D; AddEmissionLines; SZCatalogSelection; MakeSpectra; DatabaseIngest; PZGalaxyGenerator; ComputePrior
+node [shape=box]; Parameterized_PDF; ugrizy_Mags_Errs; SZValidationSample; SZValidationSample_results; PZPDF_Database; SZTrainingSample; Trained_Prior; Parameterized_PDF2D; NewSED; PDF2D; PZIncomplete; PDF; Mstar_SFR; Emline_ugrizy_fluxes; Tophat_Filter_Fluxes; EmLineSED
+"PDF" -> PZStorage1D;
+PZStorage1D -> "Parameterized_PDF";
+"Emline_ugrizy_fluxes" -> PZMainAlgorithm;
+"SZTrainingSample" -> PZMainAlgorithm;
+"Trained_Prior" -> PZMainAlgorithm;
+"SZValidationSample" -> PZMainAlgorithm;
+PZMainAlgorithm -> "PDF";
+PZMainAlgorithm -> "PDF2D";
+PZMainAlgorithm -> "SZValidationSample_results";
+"PDF2D" -> PZStorage2D;
+PZStorage2D -> "Parameterized_PDF2D";
+"NewSED" -> AddEmissionLines;
+"ugrizy_Mags_Errs" -> AddEmissionLines;
+AddEmissionLines -> "EmLineSED";
+AddEmissionLines -> "Emline_ugrizy_fluxes";
+"PZIncomplete" -> SZCatalogSelection;
+SZCatalogSelection -> "SZTrainingSample";
+SZCatalogSelection -> "SZValidationSample";
+"Tophat_Filter_Fluxes" -> MakeSpectra;
+MakeSpectra -> "NewSED";
+"Parameterized_PDF2D" -> DatabaseIngest;
+"Parameterized_PDF" -> DatabaseIngest;
+DatabaseIngest -> "PZPDF_Database";
+"Mstar_SFR" -> PZGalaxyGenerator;
+"EmLineSED" -> PZGalaxyGenerator;
+PZGalaxyGenerator -> "PZIncomplete";
+"SZValidationSample_results" -> ComputePrior;
+"SZTrainingSample" -> ComputePrior;
+ComputePrior -> "Trained_Prior";
+}
